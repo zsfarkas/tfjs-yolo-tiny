@@ -1,18 +1,11 @@
 // Heavily derived from YAD2K (https://github.com/allanzelener/YAD2K)
 import * as tf from '@tensorflow/tfjs';
 
-import class_names from './coco_classes';
-
-export const YOLO_ANCHORS = tf.tensor2d([
-  [0.57273, 0.677385], [1.87446, 2.06253], [3.33843, 5.47434],
-  [7.88282, 3.52778], [9.77052, 9.16828],
-]);
-
 export async function yolo_filter_boxes(
   boxes,
   box_confidence,
   box_class_probs,
-  threshold
+  threshold,
 ) {
   const box_scores = tf.mul(box_confidence, box_class_probs);
   const box_classes = tf.argMax(box_scores, -1);
